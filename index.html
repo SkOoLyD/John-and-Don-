@@ -1,3 +1,260 @@
-<!DOCTYPE html>
-<h1>name here</h1>
-<head>the layout</head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Content Video Storage</title>
+  <meta name="viewport" content="width=device-width">
+  
+  <!-- Schema.org markup for Google+ -->
+  <meta itemprop="name" content="Video Storage">
+  <meta itemprop="description" content="The Video Storage Template was created to showcase how a file from Rise Stroage can be levered in a HTML page.">
+  <meta itemprop="image" content="http://rise-vision.github.io/content-video-storage/img/video-storage-screenshot.jpg">
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@RiseVision">
+  <meta name="twitter:title" content="Video Storage">
+  <meta name="twitter:description" content="The Video Storage Template was created to showcase how a file from Rise Stroage can be levered in a HTML page.">
+  <meta name="twitter:image:src" content="http://rise-vision.github.io/content-video-storage/img/video-storage-screenshot.jpg">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="Video Storage" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://rise-vision.github.io/content-video-storage/" />
+  <meta property="og:image" content="http://rise-vision.github.io/content-video-storage/img/video-storage-screenshot.jpg" />
+  <meta property="og:description" content="The Video Storage Template was created to showcase how a file from Rise Stroage can be levered in a HTML page." />
+  
+  <!--Fav Icon-->
+<link rel="shortcut icon" href="http://rise-vision.github.io/content-video-storage/favicon.ico" />
+  
+  <!--Fonts-->
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!--Big Video-->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bigvideo.css">
+  <script src="js/modernizr-2.5.3.min.js"></script>
+  
+  <!--Rise Storage Component-->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="rise-storage.html">
+  
+  <!--Jquery for Music-->
+  <script src="js/jquery.js"></script>
+</head>
+
+<body>            
+  <rise-storage id="sorting" companyId="395c64e5-2930-460b-881e-009aabb157df" folder="content-video-storage"
+    sort="name" sortDirection="asc" fileType="video"></rise-storage>
+  
+<!--Header-->
+  <header>
+    <img id="logo" src="img/rise-u-logo.png" />
+    <!--Audio-->
+    <a id="controls-wrapper" style="text-decoration:none !important;border:none !important;"><img class="controls" src="img/sound-mute.png" alt=""></a>
+    <audio id="playTune" preload="auto" autoplay loop>
+    <source src="audio/Choose_Your_Path.mp3">
+    </audio>
+  </header>
+  <span class="tag-line">Why Chose John and Don?</span>
+  <div class="wrapper">
+      <div class="screen" id="screen-1" data-video="https://storage.googleapis.com/risemedialibrary-395c64e5-2930-460b-881e-009aabb157df/content-video-storage/video1.webm">
+        <div class="shade"></div>
+          <img src="img/image1.jpg" class="big-image" />
+          <h1 class="video-title">National<br/> Exposure</h1>
+      </div>
+      <div class="screen" id="screen-2" data-video="">
+        <div class="shade"></div>
+          <img src="img/image2.jpg" class="big-image" />
+          <h1 class="video-title">Top Ranked<br/> Athletes</h1>
+      </div>
+      <div class="screen" id="screen-3" data-video="">
+          <img src="img/image3.jpg" class="big-image" />
+          <h1 class="video-title">Award Winning <br/>Culinary Arts</h1>
+          <div class="shade"></div>
+      </div>
+      <div class="screen" id="screen-4" data-video="">
+        <div class="shade"></div>
+          <img src="img/image4.jpg" class="big-image" />
+          <h1 class="video-title">World Renowned <br/>Music Program</h1>
+      </div>
+  </div>
+
+  <nav id="next-btn">
+      <a href="#" class="next-icon"></a>
+  </nav>
+  
+  <!--Footer Icons-->
+  <!--Github Icon-->
+  <div id="github">
+    <a type="button" id="gitbtn" href="https://github.com/Rise-Vision/content-video-storage" target="_blank"><i class="fa fa-github fa-lg "></i></a>
+  </div>
+
+  <!--Rise Icon-->
+  <div id="rise">
+    <a href="http://www.risevision.com/" target="_blank"><img id="risebtn" src="img/rise-icon.png"/></a>
+  </div>  
+
+  <!-- BigVideo Dependencies -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/jquery-1.8.1.min.js"><\/script>')</script>
+  <script src="js/jquery-ui-1.8.22.custom.min.js"></script>
+  <script src="js/jquery.imagesloaded.min.js"></script>
+  <script src="http://vjs.zencdn.net/c/video.js"></script>
+
+  <!-- BigVideo -->
+  <script src="js/bigvideo.js"></script>
+
+  <!-- Tutorial Demo -->
+  <script src="js/jquery.transit.min.js"></script>
+  <script>
+      $(function() {
+
+          // Use Modernizr to detect for touch devices, 
+          // which don't support autoplay and may have less bandwidth, 
+          // so just give them the poster images instead
+          var screenIndex = 1,
+              numScreens = $('.screen').length,
+              isTransitioning = false,
+              transitionDur = 1000,
+              BV,
+              videoPlayer,
+              isTouch = Modernizr.touch,
+              $bigImage = $('.big-image'),
+              $window = $(window);
+
+          if (!isTouch) {
+              // initialize BigVideo
+              BV = new $.BigVideo({forceAutoplay:isTouch});
+              BV.init();
+              showVideo();
+
+              BV.getPlayer().addEvent('loadeddata', function() {
+                  onVideoLoaded();
+              });
+
+              // adjust image positioning so it lines up with video
+              $bigImage
+                  .css('position','relative')
+                  .imagesLoaded(adjustImagePositioning);
+              // and on window resize
+              $window.on('resize', adjustImagePositioning);
+          }
+
+          // Next button click goes to next div
+          $('#next-btn').on('click', function(e) {
+              e.preventDefault();
+              if (!isTransitioning) {
+                  next();
+              }
+          });
+
+          function showVideo() {
+              BV.show($('#screen-'+screenIndex).attr('data-video'),{ambient:true});
+          }
+
+          function next() {
+              isTransitioning = true;
+
+              // update video index, reset image opacity if starting over
+              if (screenIndex === numScreens) {
+                  $bigImage.css('opacity',1);
+                  screenIndex = 1;
+              } else {
+                  screenIndex++;
+              }
+
+              if (!isTouch) {
+                  $('#big-video-wrap').transit({'left':'-100%'},transitionDur)
+              }
+
+              (Modernizr.csstransitions)?
+                  $('.wrapper').transit(
+                      {'left':'-'+(100*(screenIndex-1))+'%'},
+                      transitionDur,
+                      onTransitionComplete):
+                  onTransitionComplete();
+          }
+
+          function onVideoLoaded() {
+              $('#screen-'+screenIndex).find('.big-image').transit({'opacity':0},500)
+          }
+
+          function onTransitionComplete() {
+              isTransitioning = false;
+              if (!isTouch) {
+                  $('#big-video-wrap').css('left',0);
+                  showVideo();
+              }
+          }
+
+          function adjustImagePositioning() {
+              $bigImage.each(function(){
+                  var $img = $(this),
+                      img = new Image();
+
+                  img.src = $img.attr('src');
+
+                  var windowWidth = $window.width(),
+                      windowHeight = $window.height(),
+                      r_w = windowHeight / windowWidth,
+                      i_w = img.width,
+                      i_h = img.height,
+                      r_i = i_h / i_w,
+                      new_w, new_h, new_left, new_top;
+
+                  if( r_w > r_i ) {
+                      new_h   = windowHeight;
+                      new_w   = windowHeight / r_i;
+                  }
+                  else {
+                      new_h   = windowWidth * r_i;
+                      new_w   = windowWidth;
+                  }
+
+                  $img.css({
+                      width   : new_w,
+                      height  : new_h,
+                      left    : ( windowWidth - new_w ) / 2,
+                      top     : ( windowHeight - new_h ) / 2
+                  })
+
+              });
+
+          }
+      });
+  </script>
+  <!--Script for Audio-->
+  <script type="text/javascript">
+    $('#controls-wrapper').toggle(
+      function () {
+          document.getElementById('playTune').pause();
+          $('.controls').attr('src','img/sound-play.png');
+      },
+      function () {
+          document.getElementById('playTune').play();
+          $('.controls').attr('src','img/sound-mute.png');
+      }
+    );
+  </script>
+  
+  <!--Script for Rise Storage Web Component-->
+  <script>
+    var storage = document.querySelector("rise-storage"),  
+    video1 = document.querySelector("#screen-1");
+    video2 = document.querySelector("#screen-2");
+    video3 = document.querySelector("#screen-3");
+    video4 = document.querySelector("#screen-4");
+
+    storage.addEventListener("rise-storage-response", function(e) {
+    video1.setAttribute("data-video", e.detail.files[0].url);
+    video2.setAttribute("data-video", e.detail.files[1].url);
+    video3.setAttribute("data-video", e.detail.files[2].url);
+    video4.setAttribute("data-video", e.detail.files[3].url);
+
+    });
+  </script>
+</body>
+</html>
